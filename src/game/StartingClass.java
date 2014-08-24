@@ -6,6 +6,9 @@ import java.awt.Image;
 
 public class StartingClass extends Applet implements Runnable{
 
+	private Image image;
+	private Graphics doubleBuffer;
+	
 	@Override
 	public void init() {
 	}
@@ -33,7 +36,18 @@ public class StartingClass extends Applet implements Runnable{
 	
 	@Override
 	public void update(Graphics g) {
-
+		if (image == null) {
+			image = createImage(this.getWidth(), this.getHeight());
+			doubleBuffer = image.getGraphics();
+		}
+		
+		doubleBuffer.setColor(getBackground());
+		doubleBuffer.fillRect(0, 0, this.getWidth(), this.getHeight());
+		
+		doubleBuffer.setColor(getForeground());
+		paint(doubleBuffer);
+		
+		g.drawImage(image, 0, 0, this);
 	}
 
 	@Override
