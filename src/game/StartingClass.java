@@ -1,6 +1,7 @@
 package game;
 
 import java.applet.Applet;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -9,8 +10,15 @@ public class StartingClass extends Applet implements Runnable{
 	private Image image;
 	private Graphics doubleBuffer;
 	
+	int x = 0;
+	int y = 0;
+	int speedX = 1;
+	int speedY = 1;
+	int radius = 10;
+	
 	@Override
 	public void init() {
+		setSize(400, 300);
 	}
 	
 	@Override
@@ -31,7 +39,8 @@ public class StartingClass extends Applet implements Runnable{
 	
 	@Override
 	public void paint(Graphics g) {
-	
+		g.setColor(Color.GREEN);
+		g.fillOval(x - radius, y - radius, radius * 2, radius * 2);
 	}
 	
 	@Override
@@ -53,6 +62,8 @@ public class StartingClass extends Applet implements Runnable{
 	@Override
 	public void run() {
 		while(true) {
+			x += speedX;
+			y += speedY;
 			repaint();
 			try {
 				Thread.sleep(17);
