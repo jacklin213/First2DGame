@@ -12,8 +12,8 @@ public class StartingClass extends Applet implements Runnable{
 	
 	int x = 0;
 	int y = 0;
-	int speedX = 1;
-	int speedY = 1;
+	int speedX = 4;
+	int speedY = 2;
 	int radius = 10;
 	
 	@Override
@@ -62,8 +62,25 @@ public class StartingClass extends Applet implements Runnable{
 	@Override
 	public void run() {
 		while(true) {
-			x += speedX;
-			y += speedY;
+			if (x + speedX > this.getWidth() - radius - 1) { //Checks if ball is touching wall. 1 because of pixal
+				x = this.getWidth() - radius - 1; 
+				speedX = -speedX; //Makes ball bounce off ball
+			} else if (x + speedX < 0 + radius){ 
+				x = 0 + radius;
+				speedX = -speedX;
+			} else {
+				x += speedX;
+			}
+			
+			if (y + speedY > this.getHeight() - radius - 1) {
+				y = this.getHeight() - radius - 1;
+				speedY = -speedY;
+			} else if (y + speedY < 0 + radius) {
+				y = 0 + radius;
+				speedY = -speedY;
+			} else {
+				y += speedY;
+			}
 			repaint();
 			try {
 				Thread.sleep(17);
