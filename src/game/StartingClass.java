@@ -10,11 +10,14 @@ public class StartingClass extends Applet implements Runnable{
 	private Image image;
 	private Graphics doubleBuffer;
 	
-	int x = 0;
-	int y = 0;
-	int speedX = 4;
-	int speedY = 2;
-	int radius = 10;
+	int x = 200;
+	int y = 25;
+	int radius = 20;
+	double speedX = 0;
+	double speedY = 0;
+	double gravity = 15;
+	double energyloss = .65;
+	double dt = .2;
 	
 	@Override
 	public void init() {
@@ -65,22 +68,23 @@ public class StartingClass extends Applet implements Runnable{
 			if (x + speedX > this.getWidth() - radius - 1) { //Checks if ball is touching wall. 1 because of pixal
 				x = this.getWidth() - radius - 1; 
 				speedX = -speedX; //Makes ball bounce off ball
-			} else if (x + speedX < 0 + radius){ 
+			} else if (x + speedX < 0 + radius) { 
 				x = 0 + radius;
-				speedX = -speedX;
+				speedX = -speedX; //Negative negative = positive
 			} else {
 				x += speedX;
 			}
 			
-			if (y + speedY > this.getHeight() - radius - 1) {
+			if (y > this.getHeight() - radius - 1) {
 				y = this.getHeight() - radius - 1;
-				speedY = -speedY;
-			} else if (y + speedY < 0 + radius) {
-				y = 0 + radius;
+				speedY *= energyloss; //Make ball lose some energy. speedY = speedY * energyloss
 				speedY = -speedY;
 			} else {
-				y += speedY;
+				speedY += gravity*dt; //v = u + at
+				y += speedY*dt + .5*gravity*dt*dt; // v = ut + 1/2at^2
 			}
+			
+			
 			repaint();
 			try {
 				Thread.sleep(17);
