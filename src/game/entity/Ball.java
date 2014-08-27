@@ -10,10 +10,10 @@ public class Ball {
 	private int x = 200;
 	private int y = 25;
 	private int radius = 20;
-	private double speedX = 20;
+	private double speedX = 0;
 	private double speedY = 0;
 	private double gravity = 15;
-	private double energyloss = .65;
+	private double energyloss = 1;
 	private double xFriction = .9;
 	private double dt = .2;
 	private Color color;
@@ -63,5 +63,17 @@ public class Ball {
 	public void paint(Graphics g) {
 		g.setColor(color);
 		g.fillOval(x - radius, y - radius, radius * 2, radius * 2);
+	}
+	
+	public void moveRight() {
+		if (speedX + 1 < 20) {
+			speedX += 1;
+		}
+	}
+	
+	public void moveLeft() {
+		if (speedX - 1 > 20) {
+			speedX -= 1;
+		}
 	}
 }
