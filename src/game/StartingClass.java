@@ -13,10 +13,11 @@ public class StartingClass extends Applet implements Runnable{
 	int x = 200;
 	int y = 25;
 	int radius = 20;
-	double speedX = 0;
+	double speedX = 20;
 	double speedY = 0;
 	double gravity = 15;
 	double energyloss = .65;
+	double xFriction = .9;
 	double dt = .2;
 	
 	@Override
@@ -73,6 +74,13 @@ public class StartingClass extends Applet implements Runnable{
 				speedX = -speedX; //Negative negative = positive
 			} else {
 				x += speedX;
+			}
+			
+			if (y == this.getHeight() - radius - 1) {
+				speedX *= xFriction;
+				if (Math.abs(speedX) < .8) {
+					speedX = 0;
+				}
 			}
 			
 			if (y > this.getHeight() - radius - 1) {
