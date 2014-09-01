@@ -66,13 +66,13 @@ public class Ball {
 	}
 	
 	public void moveRight() {
-		if (speedX + 1 < 20) {
+		if (speedX + 1 < 10) {
 			speedX += 1;
 		}
 	}
 	
 	public void moveLeft() {
-		if (speedX - 1 > 20) {
+		if (speedX - 1 > 10) {
 			speedX -= 1;
 		}
 	}

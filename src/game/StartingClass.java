@@ -3,7 +3,6 @@ package game;
 import game.entity.Ball;
 
 import java.applet.Applet;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -13,8 +12,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 
 	private Image image;
 	private Graphics doubleBuffer;
-	private Ball ball, badBall;
-	private Platform platform;
+	private Ball ball;
+	private Platform platform, platform2;
 	
 	@Override
 	public void init() {
@@ -25,8 +24,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 	@Override
 	public void start() {
 		ball = new Ball();
-		badBall = new Ball(400, 50, Color.BLACK);
 		platform = new Platform();
+		platform2 = new Platform(100, 425);
 		Thread thread = new Thread(this);
 		thread.start();
 	}
@@ -39,13 +38,6 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 	@Override
 	public void destroy() {
 	
-	}
-	
-	@Override
-	public void paint(Graphics g) {
-		ball.paint(g);
-		badBall.paint(g);
-		platform.paint(g);
 	}
 	
 	@Override
@@ -65,11 +57,18 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 	}
 
 	@Override
+	public void paint(Graphics g) {
+		ball.paint(g);
+		platform.paint(g);
+		platform2.paint(g);
+	}
+	
+	@Override
 	public void run() {
 		while(true) {
 			ball.update(this);
-			badBall.update(this);
-			platform.update(this);
+			platform.update(this, ball);
+			platform2.update(this, ball);
 			repaint();
 			try {
 				Thread.sleep(17);
