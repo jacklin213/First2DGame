@@ -33,7 +33,7 @@ public class Platform {
 		if (ballY + radius > y && ballY + radius < y + height) {
 			if (ballX > x && ballX < x + width) {
 				ball.setY(y - radius);
-				ball.setSpeedY(-ball.getSpeedY());
+				ball.setSpeedY(ball.getGameSpeedY());
 			}
 		}
 	}

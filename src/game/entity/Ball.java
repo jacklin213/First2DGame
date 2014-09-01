@@ -12,6 +12,7 @@ public class Ball {
 	private int radius = 20;
 	private double speedX = 0;
 	private double speedY = 0;
+	private double gameSpeedY = -75;
 	private double gravity = 15;
 	private double energyloss = 1;
 	private double xFriction = .9;
@@ -53,7 +54,7 @@ public class Ball {
 		if (y > instance.getHeight() - radius - 1) {
 			y = instance.getHeight() - radius - 1;
 			speedY *= energyloss; //Make ball lose some energy. speedY = speedY * energyloss
-			speedY = -speedY;
+			speedY = gameSpeedY;
 		} else {
 			speedY += gravity*dt; //v = u + at
 			y += speedY*dt + .5*gravity*dt*dt; // v = ut + 1/2at^2
@@ -115,6 +116,14 @@ public class Ball {
 
 	public void setSpeedY(double speedY) {
 		this.speedY = speedY;
+	}
+
+	public double getGameSpeedY() {
+		return gameSpeedY;
+	}
+
+	public void setGameSpeedY(double gameSpeedY) {
+		this.gameSpeedY = gameSpeedY;
 	}
 	
 }
