@@ -4,6 +4,7 @@ import game.entity.Ball;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 public class Platform {
 
@@ -16,13 +17,18 @@ public class Platform {
 	public Platform(int x, int y) {
 		this.x = x;
 		this.y = y;
-		speedX = -10;
+		speedX = -1;
 		width = 120;
 		height = 40;
 	}
 	
 	public void update(StartingClass instance, Ball ball) {
+		x += speedX;
 		collisionCheck(ball);
+		if (x < 0 - width) {
+			Random random = new Random();
+			x = instance.getWidth() + random.nextInt(300);
+		}
 	}
 	
 	private void collisionCheck(Ball ball) {
