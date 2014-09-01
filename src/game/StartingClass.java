@@ -7,13 +7,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 
 public class StartingClass extends Applet implements Runnable, KeyListener{
 
 	private Image image;
 	private Graphics doubleBuffer;
 	private Ball ball;
-	private Platform platform, platform2;
+	private Platform[] platforms = new Platform[7];
 	
 	@Override
 	public void init() {
@@ -24,8 +25,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 	@Override
 	public void start() {
 		ball = new Ball();
-		platform = new Platform();
-		platform2 = new Platform(100, 425);
+		for (int i = 0; i < platforms.length; i++) {
+			Random random = new Random();
+			platforms[i] = new Platform(getWidth() + 200 * i, getHeight() - 40 - random.nextInt(400));
+		}
 		Thread thread = new Thread(this);
 		thread.start();
 	}
@@ -59,16 +62,18 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 	@Override
 	public void paint(Graphics g) {
 		ball.paint(g);
-		platform.paint(g);
-		platform2.paint(g);
+		for (Platform platform : platforms) {
+			platform.paint(g);
+		}
 	}
 	
 	@Override
 	public void run() {
 		while(true) {
 			ball.update(this);
-			platform.update(this, ball);
-			platform2.update(this, ball);
+			for (Platform platform : platforms) {
+				platform.update(this, ball);
+			} 
 			repaint();
 			try {
 				Thread.sleep(17);
